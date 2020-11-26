@@ -69,4 +69,38 @@ const joinChannel = async (req, res) => {
   }
 };
 
-module.exports = { createProfile, joinChannel };
+// Controller to show list of joined channels
+const joinedChannel = async (req, res) => {
+  let foundChannels = [];
+
+  const userFound = await User.findOne({ _id: req.user._id });
+  if (!userFound) return res.status(404).send("No user found with that ID!");
+
+  const userProfile = await Profile.findOne({ user: req.user._id });
+  if (!userProfile)
+    return res.status(404).send("No profile found with that ID, create one!");
+
+  try {
+    const allProfile = await Animal.find({});
+    allProfile
+      .map((channel) => channel)
+      .map((subs) => {
+        if (Array.isArray(subs.sub)) {
+          subs.sub.forEach((sub) => {
+            sub === req.user._id ? foundChannels.push(subs) : null;
+          });
+        }
+      });
+
+    if (foundChannels.length < 1)
+      return res.status(404).send("No channels found for this user!");
+
+    foundChannels = foundChannels.map((channel) => channel);
+
+    res.send(foundChannels);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { createProfile, joinChannel, joinedChannel };
