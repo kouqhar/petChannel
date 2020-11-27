@@ -4,26 +4,22 @@ const { validateUser, User } = require("../models/Register");
 const { url } = require("gravatar");
 const { info } = require("winston");
 
-const currentUser = async (req, res) => {
-  if (req.user.name !== req.params.userName)
-    return res.status(404).send("No user with that name found!!!");
-
-  const user = await User.findById(req.user._id).select("-password");
-  res.send(user);
-};
-
 const registerUser = async (req, res) => {
   const userEmail = req.body.email;
 
   const { error } = validateUser(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) {
+    return res.status(400).json(error.details[0].message);
+  }
 
   let user = await User.findOne({ email: userEmail });
-  if (user)
+  if (user) {
     return res
       .status(400)
-      .send("There is a user already registered with that email.");
+      .json("There is a user already registered with that email.");
+  }
 
+  // Setting up gravatar
   const avatar = url(userEmail, {
     s: "200", // Size
     r: "pg", // Rating
@@ -42,10 +38,11 @@ const registerUser = async (req, res) => {
 
     const displayUser = _.pick(user, ["name", "email", "avatar"]);
     const token = user.generateAuthToken();
-    res.header("x-auth-token", token).send(displayUser);
+    // res.header("x-auth-token", token);
+    res.json(displayUser);
   } catch (err) {
     info(`Registration error : ${err}`);
   }
 };
 
-module.exports = { currentUser, registerUser };
+module.exports = { registerUser };

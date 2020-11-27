@@ -40,7 +40,8 @@ RegistrationSchema.methods.generateAuthToken = function () {
       name: this.name,
       email: this.email,
     },
-    secretOrKey
+    secretOrKey,
+    { expiresIn: 3600 * 5 }
   );
 };
 

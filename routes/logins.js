@@ -4,7 +4,7 @@ const router = require("express").Router();
 const auth = require("../middleware/auth");
 
 // Load controllers
-const { users , login } = require('../controllers/login');
+const { users, login } = require("../controllers/login");
 
 // @route   GET api/user/login
 // @desc    Getting all users

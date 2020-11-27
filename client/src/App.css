@@ -1,0 +1,63 @@
+img {
+  width: 100%;
+}
+
+.verified-container{
+  position: relative;
+  display: block;
+}
+
+.verified{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  padding-left: .25em;
+  transform: translateY(-30%);
+}
+
+.landing {
+  position: relative;
+  background: url('./img/uniConnLandingImage.jpeg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 85vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+}
+
+.landing-inner {
+  padding-top: 80px;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-form {
+  opacity: 0.9;
+}
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
+
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+.devFooter{
+  width: auto;
+  bottom: 0;
+  background: rgb(52, 58, 64);
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 3%;
+}

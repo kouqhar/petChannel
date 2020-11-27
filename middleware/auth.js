@@ -7,9 +7,10 @@ function auth(req, res, next) {
   const isValidJwt = isJWT(token);
 
   if (!token || token === "")
-    return res.status(401).send("Access denied. No token provided.");
+    return res.status(401).json({ msg: "Access denied. No token provided." });
 
-  if (!isValidJwt) return res.status(402).send("Invalid json web token!!!");
+  if (!isValidJwt)
+    return res.status(402).json({ msg: "Invalid json web token!!!" });
 
   try {
     // Verify if token is valid and true
@@ -21,7 +22,7 @@ function auth(req, res, next) {
     // Pass control to the next middleware function in the req processing pipeline
     next();
   } catch (err) {
-    return res.status(400).send("Invalid token.");
+    return res.status(400).json({ token: "Invalid token." });
   }
 }
 
