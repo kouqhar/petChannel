@@ -1,5 +1,5 @@
 module.exports = {
   mongoURI: "mongodb://localhost:27017/petChannel",
-  secretOrKey: "test my string or match my expression",
-  secretOrMailerKey: "@theNew@password11",
+  secretOrKey: "match my expression",
+  secretOrMailerKey: "@password11",
 };
